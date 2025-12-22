@@ -47,6 +47,9 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-yarn-
 
+            - name: Install system dependencies (sharp)
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
             - name: Install dependencies
               run: yarn install
 
@@ -97,6 +100,9 @@ jobs:
                   key: ${{ needs.install_and_test.outputs.cache-key }}
                   restore-keys: |
                       ${{ runner.os }}-deps-
+
+            - name: Install system dependencies (sharp)
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
 
             - name: Install dependencies
               run: yarn install
@@ -241,6 +247,9 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-deps-
 
+            - name: Install system dependencies (sharp)
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
             - name: Install dependencies
               run: yarn install
 
@@ -333,6 +342,9 @@ jobs:
             - name: Activate Yarn 3.6.4
               run: corepack prepare yarn@3.6.4 --activate
 
+            - name: Install system dependencies (sharp)
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+
             - name: Install dependencies
               run: yarn install
 
@@ -401,6 +413,9 @@ jobs:
 
             - name: Activate Yarn 3.6.4
               run: corepack prepare yarn@3.6.4 --activate
+
+            - name: Install system dependencies (sharp)
+              run: sudo apt-get update && sudo apt-get install -y libvips-dev
 
             - name: Install dependencies
               run: yarn install
