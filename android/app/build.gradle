@@ -12,6 +12,8 @@ apply from: "${background_geolocation.projectDir}/app.gradle"
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {
+    // Disable New Architecture
+    newArchEnabled = false
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '../..'
     // root = file("../../")
