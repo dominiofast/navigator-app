@@ -32,6 +32,16 @@ buildscript {
 
 allprojects { 
     repositories {
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = 'mapbox'
+                password = project.hasProperty('MAPBOX_DOWNLOADS_TOKEN') ? project.property('MAPBOX_DOWNLOADS_TOKEN') : System.getenv('MAPBOX_DOWNLOADS_TOKEN') ?: ''
+            }
+        }
         // Required for react-native-background-geolocation
         maven { url("${project(':react-native-background-geolocation').projectDir}/libs") }
         maven { url 'https://developer.huawei.com/repo/' }

@@ -2,63 +2,65 @@ import React, { forwardRef, useRef, useImperativeHandle, useState, useEffect } f
 import { Animated, Easing } from 'react-native';
 import { Spinner, YStack } from 'tamagui';
 import FastImage from 'react-native-fast-image';
-import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
+import { MarkerView } from '@rnmapbox/maps';
 import { isObject } from '../utils';
 import { SvgCssUri } from 'react-native-svg/css';
 
-// Create an animated version of Marker
-const AnimatedMarker = Animated.createAnimatedComponent(Marker);
+interface TrackingMarkerProps {
+    coordinate: { latitude: number; longitude: number };
+    imageSource: any;
+    size?: { width: number; height: number };
+    moveDuration?: number;
+    initialRotation?: number;
+    baseRotation?: number;
+    rotationDuration?: number;
+    onPress?: () => void;
+    children?: React.ReactNode;
+}
 
-const TrackingMarker = forwardRef(
+const TrackingMarker = forwardRef<any, TrackingMarkerProps>(
     ({ coordinate, imageSource, size = { width: 50, height: 50 }, moveDuration = 1000, initialRotation = 0, baseRotation = 0, rotationDuration = 500, onPress, children }, ref) => {
         const [svgLoading, setSvgLoading] = useState(true);
-
-        // Set up the animated region for position
-        const animatedRegion = useRef(
-            new AnimatedRegion({
-                latitude: coordinate.latitude,
-                longitude: coordinate.longitude,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-            })
-        ).current;
-
-        // Maintain a plain coordinate state that is updated from the AnimatedRegion.
-        const [plainCoordinate, setPlainCoordinate] = useState({
+        
+        // Current position state for smooth updates
+        const [currentCoordinate, setCurrentCoordinate] = useState({
             latitude: coordinate.latitude,
             longitude: coordinate.longitude,
         });
 
-        // Listen to updates from animatedRegion and update plainCoordinate.
-        useEffect(() => {
-            const listener = animatedRegion.addListener((region) => {
-                setPlainCoordinate({
-                    latitude: region.latitude,
-                    longitude: region.longitude,
-                });
-            });
-            return () => animatedRegion.removeListener(listener);
-        }, [animatedRegion]);
-
-        // Animated value for rotation.
+        // Animated value for rotation
         const rotation = useRef(new Animated.Value(initialRotation)).current;
+        const [rotationDeg, setRotationDeg] = useState(initialRotation);
 
-        // Function to smoothly move the marker.
-        const move = (newLatitude, newLongitude, duration = moveDuration) => {
-            animatedRegion
-                .timing({
-                    latitude: newLatitude,
-                    longitude: newLongitude,
-                    duration,
-                    useNativeDriver: false,
-                    easing: Easing.linear,
-                })
-                .start();
+        // Listen to rotation changes
+        useEffect(() => {
+            const listener = rotation.addListener(({ value }) => {
+                setRotationDeg(value);
+            });
+            return () => rotation.removeListener(listener);
+        }, [rotation]);
+
+        // Update coordinate when prop changes
+        useEffect(() => {
+            setCurrentCoordinate({
+                latitude: coordinate.latitude,
+                longitude: coordinate.longitude,
+            });
+        }, [coordinate.latitude, coordinate.longitude]);
+
+        // Function to smoothly move the marker
+        const move = (newLatitude: number, newLongitude: number, duration = moveDuration) => {
+            // For Mapbox, we update the coordinate directly
+            // Animation is handled by the map's built-in interpolation
+            setCurrentCoordinate({
+                latitude: newLatitude,
+                longitude: newLongitude,
+            });
         };
 
-        // Function to rotate the marker.
-        const rotate = (newHeading, duration = rotationDuration) => {
-            const currentRotation = rotation.__getValue();
+        // Function to rotate the marker
+        const rotate = (newHeading: number, duration = rotationDuration) => {
+            const currentRotation = rotation._value || 0;
             let delta = newHeading - currentRotation;
             if (Math.abs(delta) > 180) {
                 delta = delta - 360 * Math.sign(delta);
@@ -73,16 +75,16 @@ const TrackingMarker = forwardRef(
             }).start();
         };
 
-        // Expose move and rotate via ref.
+        // Expose move and rotate via ref
         useImperativeHandle(ref, () => ({
             move,
             rotate,
         }));
 
-        // Determine if the image source is an SVG.
+        // Determine if the image source is an SVG
         const isRemoteSvg = isObject(imageSource) && typeof imageSource.uri === 'string' && imageSource.uri.toLowerCase().endsWith('.svg');
 
-        const onSvgLoadingError = (e) => {
+        const onSvgLoadingError = () => {
             setSvgLoading(false);
         };
 
@@ -91,17 +93,15 @@ const TrackingMarker = forwardRef(
         };
 
         return (
-            <AnimatedMarker coordinate={plainCoordinate} onPress={onPress}>
+            <MarkerView
+                coordinate={[currentCoordinate.longitude, currentCoordinate.latitude]}
+                allowOverlap={true}
+            >
                 <Animated.View
                     style={{
                         transform: [
                             { rotate: `${baseRotation}deg` },
-                            {
-                                rotate: rotation.interpolate({
-                                    inputRange: [0, 360],
-                                    outputRange: ['0deg', '360deg'],
-                                }),
-                            },
+                            { rotate: `${rotationDeg}deg` },
                         ],
                     }}
                 >
@@ -135,7 +135,7 @@ const TrackingMarker = forwardRef(
                     )}
                 </Animated.View>
                 {children && <YStack>{children}</YStack>}
-            </AnimatedMarker>
+            </MarkerView>
         );
     }
 );
