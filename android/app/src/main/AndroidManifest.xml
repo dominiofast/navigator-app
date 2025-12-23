@@ -23,6 +23,7 @@
     android:dataExtractionRules="@xml/data_extraction_rules" 
     android:fullBackupContent="true"
     tools:targetApi="s"
+    tools:replace="android:allowBackup,android:label,android:theme,android:icon,android:name"
     android:supportsRtl="true"
     >
     <activity android:name=".MainActivity"
