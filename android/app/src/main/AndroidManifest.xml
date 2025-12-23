@@ -29,7 +29,7 @@
     <activity android:name=".MainActivity"
       android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
       android:launchMode="singleTask" android:windowSoftInputMode="adjustResize"
-      android:exported="true" tools:node="merge"
+      android:exported="true" 
       android:theme="@style/BootTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
