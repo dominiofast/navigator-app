@@ -93,7 +93,7 @@ android {
         manifestPlaceholders = [
             appLinkScheme: project.env.get("APP_LINK_PREFIX") ?: "flbnavigator"
         ]
-        resValue "string", "build_config_package", "io.fleetbase.navigator"
+        resValue "string", "build_config_package", project.env.get("APP_IDENTIFIER") ?: "tech.dominio.entregas"
     }
     signingConfigs {
         release {

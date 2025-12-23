@@ -55,8 +55,10 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo "APP_LINK_PREFIX=${{ secrets.APP_LINK_PREFIX }}" > .env
-                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" > .env
+                  echo "APP_IDENTIFIER=tech.dominio.entregas" > .env
+                  echo "APP_NAME=Dominio Entregas" >> .env
+                  echo "APP_LINK_PREFIX=dominioentregas" >> .env
+                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" >> .env
                   echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
                   echo "FACEBOOK_APP_ID=${{ secrets.FACEBOOK_APP_ID }}" >> .env
                   echo "FACEBOOK_CLIENT_TOKEN=${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> .env
@@ -109,8 +111,10 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo "APP_LINK_PREFIX=${{ secrets.APP_LINK_PREFIX }}" > .env
-                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" > .env
+                  echo "APP_IDENTIFIER=tech.dominio.entregas" > .env
+                  echo "APP_NAME=Dominio Entregas" >> .env
+                  echo "APP_LINK_PREFIX=dominioentregas" >> .env
+                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" >> .env
                   echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
                   echo "FACEBOOK_APP_ID=${{ secrets.FACEBOOK_APP_ID }}" >> .env
                   echo "FACEBOOK_CLIENT_TOKEN=${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> .env
@@ -259,8 +263,10 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo "APP_LINK_PREFIX=${{ secrets.APP_LINK_PREFIX }}" > .env
-                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" > .env
+                  echo "APP_IDENTIFIER=tech.dominio.entregas" > .env
+                  echo "APP_NAME=Dominio Entregas" >> .env
+                  echo "APP_LINK_PREFIX=dominioentregas" >> .env
+                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" >> .env
                   echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
                   echo "FACEBOOK_APP_ID=${{ secrets.FACEBOOK_APP_ID }}" >> .env
                   echo "FACEBOOK_CLIENT_TOKEN=${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> .env
@@ -354,8 +360,10 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo "APP_LINK_PREFIX=${{ secrets.APP_LINK_PREFIX }}" > .env
-                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" > .env
+                  echo "APP_IDENTIFIER=tech.dominio.entregas" > .env
+                  echo "APP_NAME=Dominio Entregas" >> .env
+                  echo "APP_LINK_PREFIX=dominioentregas" >> .env
+                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" >> .env
                   echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
                   echo "FACEBOOK_APP_ID=${{ secrets.FACEBOOK_APP_ID }}" >> .env
                   echo "FACEBOOK_CLIENT_TOKEN=${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> .env
@@ -426,8 +434,10 @@ jobs:
 
             - name: Create .env file
               run: |
-                  echo "APP_LINK_PREFIX=${{ secrets.APP_LINK_PREFIX }}" > .env
-                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" > .env
+                  echo "APP_IDENTIFIER=tech.dominio.entregas" > .env
+                  echo "APP_NAME=Dominio Entregas" >> .env
+                  echo "APP_LINK_PREFIX=dominioentregas" >> .env
+                  echo "FLEETBASE_KEY=${{ secrets.FLEETBASE_KEY }}" >> .env
                   echo "MAPBOX_ACCESS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> .env
                   echo "FACEBOOK_APP_ID=${{ secrets.FACEBOOK_APP_ID }}" >> .env
                   echo "FACEBOOK_CLIENT_TOKEN=${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> .env
