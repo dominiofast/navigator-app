@@ -2472,7 +2472,7 @@ __metadata:
     react-native-fbsdk-next: ^13.4.0
     react-native-file-viewer: ^2.1.5
     react-native-fs: ^2.20.0
-    react-native-gesture-handler: ^2.20.2
+    react-native-gesture-handler: 2.30.0
     react-native-get-random-values: ^1.11.0
     react-native-haptic-feedback: ^2.3.3
     react-native-i18n: ^2.0.15
@@ -15108,7 +15108,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-gesture-handler@npm:^2.20.2":
+"react-native-gesture-handler@npm:2.30.0":
   version: 2.30.0
   resolution: "react-native-gesture-handler@npm:2.30.0"
   dependencies:
