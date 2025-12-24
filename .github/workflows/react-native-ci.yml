@@ -256,7 +256,7 @@ jobs:
                       ${{ runner.os }}-deps-
 
             - name: Install system dependencies (sharp)
-              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+              run: brew install vips
 
             - name: Install dependencies
               run: yarn install
@@ -427,7 +427,7 @@ jobs:
               run: corepack prepare yarn@3.6.4 --activate
 
             - name: Install system dependencies (sharp)
-              run: sudo apt-get update && sudo apt-get install -y libvips-dev
+              run: brew install vips
 
             - name: Install dependencies
               run: yarn install
