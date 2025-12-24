@@ -3,16 +3,14 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
-// Configuração React Native (Padrão RN 0.74)
-project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
-]
+// React Native configuration
+react {
+    // Hermes is enabled by default in gradle.properties
+}
 
 // background-geolocation
 Project background_geolocation = project(':react-native-background-geolocation')
 apply from: "${background_geolocation.projectDir}/app.gradle"
-
-def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
     ndkVersion rootProject.ext.ndkVersion
@@ -41,8 +39,6 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -53,18 +49,5 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    
-    if (project.ext.react.enableHermes) {
-        implementation("com.facebook.react:hermes-android")
-    } else {
-        implementation jscFlavor
-    }
-
-    // Dependências dos módulos
-    implementation project(':react-native-config')
-    implementation project(':react-native-notifications')
-    implementation project(':react-native-i18n')
-    // Outras dependências necessárias...
+    implementation("com.facebook.react:hermes-android")
 }
-
-// Aplica configurações do plugin React Native

@@ -10,6 +10,7 @@ on:
 env:
     FLEETBASE_KEY: ${{ secrets.FLEETBASE_KEY }}
     MAPBOX_ACCESS_TOKEN: ${{ secrets.MAPBOX_ACCESS_TOKEN }}
+    MAPBOX_DOWNLOADS_TOKEN: ${{ secrets.MAPBOX_DOWNLOADS_TOKEN }}
     TRANSISTORSOFT_LICENSE_KEY: ${{ secrets.TRANSISTORSOFT_LICENSE_KEY }}
     ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
 
@@ -204,7 +205,10 @@ jobs:
 
             - name: Configure Mapbox SDK
               run: |
-                  echo "MAPBOX_DOWNLOADS_TOKEN=${{ secrets.MAPBOX_ACCESS_TOKEN }}" >> android/gradle.properties
+                  # MAPBOX_DOWNLOADS_TOKEN should be a secret token (sk.) with DOWNLOADS:READ scope
+                  # If not set separately, fall back to MAPBOX_ACCESS_TOKEN
+                  MAPBOX_TOKEN="${{ secrets.MAPBOX_DOWNLOADS_TOKEN || secrets.MAPBOX_ACCESS_TOKEN }}"
+                  echo "MAPBOX_DOWNLOADS_TOKEN=${MAPBOX_TOKEN}" >> android/gradle.properties
 
             - name: Make Gradlew Executable
               run: cd android && chmod +x ./gradlew
